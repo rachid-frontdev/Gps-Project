@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>face app</title>
+    <!-- leaflet mapping methode -->
+  	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  	integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+  	crossorigin=""/>
+  	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""></script>
+      <style>
+        /* leaflet  */
+        #myMap {
+        	height: 400px;
+         }
+         #start {
+           padding: 1em;
+    border: none;
+    margin: 50px 0;
+    font-weight: 900;
+    color: white;
+    background: red;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    transition:all 400ms linear;
+         }
+         #start:hover {
+           margin: 40px 0;
+
+         }
+      </style>
+
+  </head>
+  <body>
+    <div id="here"> love myself</div>
+<ul class="nav">
+  <li><a href="index.html">home</a></li>
+  <li><a href="afterindex.html">another page</a></li>
+</ul>
+<div class="gps">
+  <p id="latitude"></p>
+  <p id="longitude"></p>
+
+</div>
+<div id="myMap"></div>
+<button type="button" id="start">click to show my geolocation</button>
+<script>
+
+let div = document.querySelector('#here'),
+    clickin = document.getElementById('start');
+    const getGps = () => {
+if('geolocation' in navigator) {
+  navigator.geolocation.getCurrentPosition((position) => {
+    let {latitude, longitude } = position.coords;
+    function zoomInLocation(lat,long) {
+      const myMap = L.map('myMap').setView([lat, long], 7);
+      // const marker = L.marker([50.5, 30.5]).addTo(mymap);
+      const attribution ='&copy; <a href="https://www.openstreetmap.org/copyright">openstreetmap</a>';
+      const tile_url ='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+      L.tileLayer(tile_url, {
+          attribution
+      }).addTo(myMap);
+      document.getElementById('latitude').innerText = 'latitude is '+ lat;
+      document.getElementById('longitude').innerText = 'longitude is '+ long;
+
+    }
+    zoomInLocation(latitude,longitude);
+
+    const data = {latitude, longitude};
+    fetch('/position', {
+      method :'POST',
+      headers: {
+     'Content-Type': 'application/json'
+   },
+      body : JSON.stringify(data)
+    })
+    .then(res => res.json()).then(final => {
+      console.log(final);
+    });
+  });
+} else {
+  console.log('geolocation is\'nt available ')
+  }
+}
+clickin.onclick = (e) => {
+   getGps();
+   e.target.onclick = null;
+};
+
+const getLat = async () => {
+  let response = await fetch('https://api.wheretheiss.at/v1/satellites/25544'),
+  data =  await response.json();
+   let {latitude, longitude }= data;
+
+   const second = {latitude, longitude};
+// try {
+//   let done = await fetch('/api', {
+//     method :'POST',
+//     headers: {
+//    'Content-Type': 'application/json'
+//  },
+//     body : JSON.stringify(second)
+//   });
+//   let acccept = await done.json();
+//  //  document.getElementById('latitude').innerText = 'latitude is '+ latitude;
+//  //  document.getElementById('longitude').innerText = 'longitude is '+ longitude;
+//
+// } catch(er) {
+//   console.log(er);
+// }
+
+}
+getLat();
+
+</script>
+<!-- <script type="text/javascript" src='app.js'></script> -->
+  </body>
+</html>

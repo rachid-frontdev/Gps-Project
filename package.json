@@ -1,0 +1,15 @@
+{
+  "name": "faceproject",
+  "version": "1.0.0",
+  "description": "this project for doing practice with the coding train",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "rachidFrontdev",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nedb": "^1.8.0"
+  }
+}
