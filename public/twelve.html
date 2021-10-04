@@ -5,15 +5,20 @@
     <title>twelvepage</title>
   </head>
   <body>
+      
 <script type="text/javascript">
 async function getMethod() {
   // routing api
+  try {
     let dbResponse = await fetch('/position');
     let response = await dbResponse.json();
-    response.map(e => console.log(e));
-
+    console.log(response);
   }
-  getMethod().catch(er=> console.log(er))
+    catch(er) {
+      console.log(er);
+    }
+  }
+  getMethod()
 </script>
   </body>
 </html>

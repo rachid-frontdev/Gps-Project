@@ -18,7 +18,6 @@ let app = express();
         res.status(404).end()
         return ;
       }
-      console.log('get everything from db & send to client side');
       res.json(docs)
 
   });
