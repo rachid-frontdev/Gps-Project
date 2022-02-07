@@ -6,16 +6,5 @@ router.get('/', (req,res) => {
     title: 'inputFruits'
   });
 });
-router.get('/ananas', (req,res) => {
-  res.send('hello from ananas');
-});
-router.get('/apple', (req,res) => {
-  res.send('hello from apple');
-});
-
-router.get('/ananas/weight', (req,res) => {
-  res.send('hello from weight');
-});
-
 
 module.exports = router;
