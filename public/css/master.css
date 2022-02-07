@@ -1,4 +1,7 @@
 /* leaflet  */
+body {
+  height:3000px;
+}
 #myMap {
   height: 400px;
  }
@@ -18,3 +21,6 @@ transition:all 400ms linear;
    margin: 40px 0;
 
  }
+#pee {
+  color:red;
+}

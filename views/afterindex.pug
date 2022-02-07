@@ -1,0 +1,8 @@
+extends layout
+block content
+  include nav.pug
+  h3#what you can do anything you love
+  label(for='fruit') Enter Your Fruit you want
+  input#fruit.form-control(type='text' placeholder='ananna')
+  input#submit.btn.btn-outline-danger(type='submit' value='Submit')
+  script(src='/validation.js')

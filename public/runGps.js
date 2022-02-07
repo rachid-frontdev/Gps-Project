@@ -1,33 +1,3 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>face app</title>
-    <!-- leaflet mapping methode -->
-  	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-  	integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-  	crossorigin=""/>
-  	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-      crossorigin=""></script>
-      <!--end  leaflet mapping methode -->
-      <link rel="stylesheet" href="/css/master.css">
-  </head>
-  <body>
-    <div id="here"> love myself</div>
-<ul class="nav">
-  <li><a href="index.html">home</a></li>
-  <li><a href="afterindex.html">another page</a></li>
-</ul>
-<div class="gps">
-  <p id="latitude"></p>
-  <p id="longitude"></p>
-
-</div>
-<div id="myMap"></div>
-<button type="button" id="start">click to show my geolocation</button>
-<script>
-
 let div = document.querySelector('#here'),
     clickin = document.getElementById('start');
     const getGps = () => {
@@ -56,9 +26,9 @@ if('geolocation' in navigator) {
    },
       body : JSON.stringify(data)
     })
-    .then(res => res.json()).then(final => {
-      console.log(final);
-    });
+    .then(response => response.json())
+    .then(data => console.log(data));
+
   });
 } else {
   console.log('geolocation is\'nt available ')
@@ -67,7 +37,7 @@ if('geolocation' in navigator) {
 clickin.onclick = (e) => {
    getGps();
    e.target.onclick = null;
-};
+}
 
 const getLat = async () => {
   let response = await fetch('https://api.wheretheiss.at/v1/satellites/25544'),
@@ -92,9 +62,4 @@ const getLat = async () => {
 // }
 
 }
-getLat();
-
-</script>
-<!-- <script type="text/javascript" src='app.js'></script> -->
-  </body>
-</html>
+// getLat();

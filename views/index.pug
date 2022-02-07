@@ -1,0 +1,10 @@
+extends layout
+block content
+  include nav.pug
+  #here  start find my location 
+  .gps
+    p#latitude
+    p#longitude
+  #myMap
+  button#start(type='button') click to show my geolocation
+  script(src='/runGps.js')

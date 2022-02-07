@@ -1,21 +1,3 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>after index</title>
-  </head>
-  <body>
-    <ul class="nav">
-      <li><a href="index.html">home</a></li>
-      <li><a href="afterindex.html">another page</a></li>
-    </ul>
-
-<h3 id="what">you can do anything you love</h3>
-<label for="fruit">Enter Your Fruit you want</label>
-<input type="text" id="fruit" placeholder="ananna">
-<input type="submit" type="button" id="submit" value="Submit">
-<script type="text/javascript">
-
 let fruitEle = document.getElementById('fruit');
 let btn = document.getElementById('submit');
 // fruitEle.onchange = () => console.log(fruitEle.value);
@@ -40,11 +22,3 @@ btn.onclick = () => {
     console.log('geolocation is\'nt available ')
     }
 }
-
-
-
-
-
-</script>
-  </body>
-</html>
