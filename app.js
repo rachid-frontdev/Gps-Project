@@ -1,27 +1,54 @@
 let express = require('express');
 let nedb = require('nedb');
+const path = require('path');
+const fruitRouter = require('./routes/router-afterindex.js');
 db = new nedb('first.db');
 db.loadDatabase();
-
 let app = express();
-  app.listen('4000', () => {
-    console.log('successful connect');
+let port = process.env.PORT || '4000';
+app.listen(port, () => {
+  console.log('successful connect');
+});
 
-  });
-  app.use(express.static('public'));
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.json());
 
-  app.get('/position', (req, res) => {
-    // using Database Query
-    db.find({},  (err, docs) => {
-      if (err) {
-        res.status(404).end()
-        return ;
-      }
-      res.json(docs)
-
+  //midlleware
+  app.get('/', (req,res) => {
+    res.render('index', {
+      title: 'getGps'
+    });
   });
-});
+  app.get('/warning',(req,res) => {
+    res.sendFile(path.join(__dirname, 'twelve.html'));
+  });
+  app.use('/fruit',fruitRouter);
+
+  // position endpoint
+  app.post('/position', (req, res) => {
+    const data = req.body;
+  data.timestamp = Date.now();
+  res.json(data);
+  // send after click lant & longitude
+  // db.insert(data, (err, newDoc) => {
+  //   res.json(newDoc);
+  // });
+  });
+
+
+//   app.get('/position', (req, res) => {
+//     // using Database Query
+//     db.find({},  (err, docs) => {
+//       if (err) {
+//         res.status(404).end()
+//         return ;
+//       }
+//       res.json(docs)
+//
+//   });
+// });
   // app.post('/api' , function (request, response) {
   //   response.json({
   //     name:'rachid',
@@ -34,14 +61,17 @@ let app = express();
   //     }
   //   });
   // });
+  app.get('/rachid/:skill', (req,res) => {
+    console.log(req.params);
+    res.render('index', {
+      title: 'getGps',
+      name: req.query.name
+    });
+  });
 
-// position endpoint
-app.post('/position' , function (req, res) {
-let data = req.body;
-data.timestamp = Date.now();
-// send after click lant & longitude
-// db.insert(data, (err, newDoc) => {
-//   res.json(newDoc);
-// });
-
+// adding error page
+app.use((req,res,next) => {
+  res.render('error', {
+    title: 'error page'
+  });
 });

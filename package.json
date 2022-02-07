@@ -4,12 +4,17 @@
   "description": "this project for doing practice with the coding train",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "author": "rachidFrontdev",
   "license": "ISC",
   "dependencies": {
+    "commander": "^8.3.0",
     "express": "^4.17.1",
-    "nedb": "^1.8.0"
+    "nedb": "^1.8.0",
+    "pug": "^3.0.2"
+  },
+  "engines":{
+    "node":"12.22.6"
   }
 }
